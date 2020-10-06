@@ -11,6 +11,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontPosture;
+import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
@@ -101,10 +105,16 @@ public class JavaFXTemplate extends Application {
 			
 			
 	
-		      Text Welcome = new Text();      
+		      Text Welcome = new Text();     
+		      Welcome.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 50));
+		      Welcome.setX(50); 
+		      Welcome.setY(130);
+		      Welcome.setFill(Color.ROYALBLUE);
+		      Welcome.setStrokeWidth(2);
 		      
 
-		      Welcome.setText("Welcome to the Game Please select your Spot"); 
+		      Welcome.setText("Welcome to the Game \n"
+		      		+ "Please select your Spot"); 
 			
 			
 
@@ -121,6 +131,7 @@ public class JavaFXTemplate extends Application {
 					// TODO Auto-generated method stub
 					Spot = 1;	
 					System.out.print("Value of Spot == " + Spot);
+					
 				} 
 	            
 	        }; 
@@ -171,9 +182,11 @@ public class JavaFXTemplate extends Application {
 			
 			
 		//new scene with root node
-		Scene scene = new Scene(new VBox(30,BAR, Welcome,SpotVal1, SpotVal4, SpotVal8, SpotVal10),1000,700);
+		Scene scene = new Scene(new VBox(30,BAR, Welcome,SpotVal1, SpotVal4, SpotVal8, SpotVal10),700,700);
 		primaryStage.setScene(scene); //set the scene in the stage
 		primaryStage.show(); //make visible to the user
+		
+		
 		
 	}
 	
