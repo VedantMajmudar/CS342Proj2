@@ -11,8 +11,10 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 import javafx.scene.layout.StackPane;
+
 
 //This is vedant commenting the line. 
 
@@ -22,15 +24,31 @@ public class JavaFXTemplate extends Application {
 		private MenuBar BAR;
 		private Button MenuButton;
 		
-		//private TextField t1;
-		///private EventHandler<ActionEvent> myHandler;
+		public int Spot;
+		public int getSpot() {
+			return Spot;
+		}
+
+
+
+
+		private Button SpotVal1;
+		private Button SpotVal4;
+		private Button SpotVal8;
+		private Button SpotVal10;
 		
-		
-		
+		 
+	
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		launch(args); // Set up javafx as an application 
+		
+		JavaFXTemplate hi = new JavaFXTemplate();
+		
+		System.out.print("Value of Spot == " + hi.getSpot() );
+		
+		
 	}
 
 	
@@ -42,6 +60,12 @@ public class JavaFXTemplate extends Application {
 		// TODO Auto-generated method stub
 
 		primaryStage.setTitle("Keno Main Menu");//Setting the title of the window.
+		
+		
+		
+		
+		
+//==================++++++++++++MENU+++++++++++=================		
 		BAR = new MenuBar(); //a menu bar takes menus as children
 		MenuButton = new Button("Menu"); //Menu button on the Menu bar 
 		
@@ -71,12 +95,86 @@ public class JavaFXTemplate extends Application {
 	
 			iOne.setOnAction(e -> RulesWindow.Rules());
 			iTwo.setOnAction(e -> OddsWinWindow.Odds());
+//==================++++++++++++MENU+++++++++++=================
+			
+			
+			
+			
+	
+		      Text Welcome = new Text();      
+		      
+
+		      Welcome.setText("Welcome to the Game Please select your Spot"); 
+			
+			
+
+			
+			
+	
+//==================++++++++++++SPot+++++++++++=================
+			
+			
+			EventHandler<ActionEvent> SpotVal1Event = new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					Spot = 1;	
+					System.out.print("Value of Spot == " + Spot);
+				} 
+	            
+	        }; 
+	        
+	        EventHandler<ActionEvent> SpotVal4Event = new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					Spot = 4;	
+					System.out.print("Value of Spot == " + Spot);
+				} 
+	            
+	        }; 
+	        EventHandler<ActionEvent> SpotVal8Event = new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					Spot = 8;	
+					System.out.print("Value of Spot == " + Spot);
+				} 
+	            
+	        }; EventHandler<ActionEvent> SpotVal10Event = new EventHandler<ActionEvent>() {
+
+				@Override
+				public void handle(ActionEvent event) {
+					// TODO Auto-generated method stub
+					Spot = 10;	
+					System.out.print("Value of Spot == " + Spot);
+				} 
+	            
+	        }; 
+
+			SpotVal1 = new Button(" 1 ");
+			SpotVal4 = new Button(" 4 ");
+			SpotVal8 = new Button(" 8 ");
+			SpotVal10 = new Button(" 10 ");
+
+			SpotVal1.setOnAction(SpotVal1Event);
+			SpotVal4.setOnAction(SpotVal4Event);
+			SpotVal8.setOnAction(SpotVal8Event);
+			SpotVal10.setOnAction(SpotVal10Event);
+			
+			
+			
+//==================++++++++++++SPot+++++++++++=================
 			
 			
 		//new scene with root node
-		Scene scene = new Scene(new VBox(30,BAR), 1000,700);
+		Scene scene = new Scene(new VBox(30,BAR, Welcome,SpotVal1, SpotVal4, SpotVal8, SpotVal10),1000,700);
 		primaryStage.setScene(scene); //set the scene in the stage
 		primaryStage.show(); //make visible to the user
+		
 	}
 	
 	/*
