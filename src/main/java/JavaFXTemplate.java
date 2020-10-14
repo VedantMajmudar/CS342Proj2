@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import javafx.application.Application;
@@ -36,8 +37,17 @@ public class JavaFXTemplate extends Application {
 		
 		
 		public int Spot;
+		public int SpotCount;
 		public int Round;
+		public int RoundCount;
 		
+		
+		
+		public int Score = 0; 
+		
+		ArrayList<Integer> UserList;
+		 
+		 
 		public int getSpot() {
 			return Spot;
 		}
@@ -76,6 +86,7 @@ public class JavaFXTemplate extends Application {
 		// TODO Auto-generated method stub
 		
 		sceneMap = new HashMap<String,Scene>();
+		UserList = new ArrayList<Integer>();
 
 
 		primaryStage.setTitle("Keno Main Menu");//Setting the title of the window.
@@ -141,6 +152,8 @@ public class JavaFXTemplate extends Application {
 						// TODO Auto-generated method stub
 						Round = 1;	
 						System.out.print("Value of Round == " + Round);
+						primaryStage.setScene(sceneMap.get("game"));
+						RoundCount = Round;
 						
 					} 
 		            
@@ -153,6 +166,8 @@ public class JavaFXTemplate extends Application {
 						// TODO Auto-generated method stub
 						Round = 2;	
 						System.out.print("Value of Round == " + Round);
+						primaryStage.setScene(sceneMap.get("game"));
+						RoundCount = Round;
 					} 
 		            
 		        }; 
@@ -163,6 +178,8 @@ public class JavaFXTemplate extends Application {
 						// TODO Auto-generated method stub
 						Round = 3;	
 						System.out.print("Value of Round == " + Round);
+						primaryStage.setScene(sceneMap.get("game"));
+						RoundCount = Round;
 					} 
 		            
 		        }; EventHandler<ActionEvent> RoundVal4Event = new EventHandler<ActionEvent>() {
@@ -172,6 +189,8 @@ public class JavaFXTemplate extends Application {
 						// TODO Auto-generated method stub
 						Round = 4;	
 						System.out.print("Value of Round == " + Round);
+						primaryStage.setScene(sceneMap.get("game"));
+						RoundCount = Round;
 					} 
 		            
 		        }; 
@@ -199,6 +218,7 @@ public class JavaFXTemplate extends Application {
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
 					Spot = 1;	
+					 SpotCount = Spot;
 					System.out.print("Value of Spot == " + Spot);
 					primaryStage.setScene(sceneMap.get("rounds"));
 					
@@ -211,7 +231,8 @@ public class JavaFXTemplate extends Application {
 				@Override
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
-					Spot = 4;	
+					Spot = 4;
+					 SpotCount = Spot;
 					System.out.print("Value of Spot == " + Spot);
 					primaryStage.setScene(sceneMap.get("rounds"));
 					
@@ -225,6 +246,7 @@ public class JavaFXTemplate extends Application {
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
 					Spot = 8;	
+					 SpotCount = Spot;
 					System.out.print("Value of Spot == " + Spot);
 					primaryStage.setScene(sceneMap.get("rounds"));
 				} 
@@ -235,6 +257,7 @@ public class JavaFXTemplate extends Application {
 				public void handle(ActionEvent event) {
 					// TODO Auto-generated method stub
 					Spot = 10;	
+					 SpotCount = Spot;
 					System.out.print("Value of Spot == " + Spot);
 					primaryStage.setScene(sceneMap.get("rounds"));
 				} 
@@ -265,6 +288,8 @@ public class JavaFXTemplate extends Application {
 		sceneMap.put("scene", welcomeScene());
 		sceneMap.put("spots", spotScene());
 		sceneMap.put("rounds", roundsScene());
+		sceneMap.put("game", GameSecne());
+		
 			
 		//new scene with root node
 		primaryStage.setScene(sceneMap.get("scene")); //set the scene in the stage
@@ -337,6 +362,72 @@ public class JavaFXTemplate extends Application {
 		
 	}
 	
+	public Scene GameSecne() {
+		
+	
+		
+	//====================The Grid ======================
+	
+		
+	GridPane grid = new GridPane();
+	grid.setHgap(10);
+	grid.setVgap(10);
+	grid.setAlignment(Pos.CENTER);
+	
+	 int button_num = 1;
+
+     for(int x = 0; x < 8; x++) {
+         for(int i = 0; i < 10; i++) {
+
+             Button b1 = new Button(Integer.toString(button_num));
+             button_num++;
+             b1.setStyle("-fx-pref-height: 100px");
+             b1.setStyle("-fx-pref-width: 100px");
+
+             b1.setOnAction(new EventHandler<ActionEvent>() {
+            	 //if(spotCont!=0) 
+             
+                 @Override
+                 public void handle(ActionEvent e) {
+                	
+                	 
+                	// System.out.println(" \n SpotCount " + SpotCount);
+                	 if (SpotCount > 0) {
+                     // TODO Auto-generated method stub
+                     System.out.println(" \n button pressed: " + ((Button)e.getSource()).getText());
+                     
+                     String s = ((Button)e.getSource()).getText();		 
+                     UserList.add(Integer.valueOf(s));
+                     
+                     Button b1 = (Button)e.getSource();
+                     b1.setDisable(true);
+
+//                     for (Integer e1 :UserList  ) {
+//                    	 System.out.println(" " + e1);}
+                     
+                     SpotCount--;
+                 }
+               }
+             });
+             grid.add(b1, i, x);
+
+         }
+
+     }
+	
+ 	//====================The Grid END======================
+	
+
+     
+     
+     
+     
+     
+	
+	
+	return new Scene(new VBox(50 ,BAR, grid), 900, 700);
+	}
+
 	
 	
 	
