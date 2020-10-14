@@ -36,6 +36,8 @@ public class JavaFXTemplate extends Application {
 		
 		
 		public int Spot;
+		public int Round;
+		
 		public int getSpot() {
 			return Spot;
 		}
@@ -51,8 +53,11 @@ public class JavaFXTemplate extends Application {
 		
 		Text Welcome;
 		
-		 
-	
+		
+		private Button RoundVal1;
+		private Button RoundVal2;
+		private Button RoundVal3;
+		private Button RoundVal4;
 		
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -125,6 +130,66 @@ public class JavaFXTemplate extends Application {
 			
 			
 	
+//==================++++++++++++Rounds+++++++++++=================
+		      
+		      
+				
+				EventHandler<ActionEvent> RoundVal1Event = new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						Round = 1;	
+						System.out.print("Value of Round == " + Round);
+						
+					} 
+		            
+		        }; 
+		        
+		        EventHandler<ActionEvent> RoundVal2Event = new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						Round = 2;	
+						System.out.print("Value of Round == " + Round);
+					} 
+		            
+		        }; 
+		        EventHandler<ActionEvent> RoundVal3Event = new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						Round = 3;	
+						System.out.print("Value of Round == " + Round);
+					} 
+		            
+		        }; EventHandler<ActionEvent> RoundVal4Event = new EventHandler<ActionEvent>() {
+
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						Round = 4;	
+						System.out.print("Value of Round == " + Round);
+					} 
+		            
+		        }; 
+
+		        RoundVal1 = new Button(" 1 ");
+		        RoundVal2 = new Button(" 2 ");
+		        RoundVal3 = new Button(" 3 ");
+		        RoundVal4 = new Button(" 4 ");
+
+		        RoundVal1.setOnAction(RoundVal1Event);
+		        RoundVal2.setOnAction(RoundVal2Event);
+		        RoundVal3.setOnAction(RoundVal3Event);
+		        RoundVal4.setOnAction(RoundVal4Event);
+				
+		      
+//==================++++++++++++Rounds End+++++++++++=================
+		      
+		      
 //==================++++++++++++SPot+++++++++++=================
 			
 			
@@ -135,6 +200,7 @@ public class JavaFXTemplate extends Application {
 					// TODO Auto-generated method stub
 					Spot = 1;	
 					System.out.print("Value of Spot == " + Spot);
+					primaryStage.setScene(sceneMap.get("rounds"));
 					
 				} 
 	            
@@ -147,6 +213,9 @@ public class JavaFXTemplate extends Application {
 					// TODO Auto-generated method stub
 					Spot = 4;	
 					System.out.print("Value of Spot == " + Spot);
+					primaryStage.setScene(sceneMap.get("rounds"));
+					
+					
 				} 
 	            
 	        }; 
@@ -157,6 +226,7 @@ public class JavaFXTemplate extends Application {
 					// TODO Auto-generated method stub
 					Spot = 8;	
 					System.out.print("Value of Spot == " + Spot);
+					primaryStage.setScene(sceneMap.get("rounds"));
 				} 
 	            
 	        }; EventHandler<ActionEvent> SpotVal10Event = new EventHandler<ActionEvent>() {
@@ -166,6 +236,7 @@ public class JavaFXTemplate extends Application {
 					// TODO Auto-generated method stub
 					Spot = 10;	
 					System.out.print("Value of Spot == " + Spot);
+					primaryStage.setScene(sceneMap.get("rounds"));
 				} 
 	            
 	        }; 
@@ -180,6 +251,8 @@ public class JavaFXTemplate extends Application {
 			SpotVal8.setOnAction(SpotVal8Event);
 			SpotVal10.setOnAction(SpotVal10Event);
 			
+			
+			
 			start = new Button("PLAY KENO");
 			start.setTextAlignment(TextAlignment.CENTER);
 			
@@ -191,6 +264,7 @@ public class JavaFXTemplate extends Application {
 			
 		sceneMap.put("scene", welcomeScene());
 		sceneMap.put("spots", spotScene());
+		sceneMap.put("rounds", roundsScene());
 			
 		//new scene with root node
 		primaryStage.setScene(sceneMap.get("scene")); //set the scene in the stage
@@ -232,7 +306,7 @@ public class JavaFXTemplate extends Application {
 		BorderPane Pane = new BorderPane();
 		//Pane.setPadding(new Insets(70));
 		
-		HBox buttons = new HBox(30, SpotVal1 , SpotVal4, SpotVal8, SpotVal10);
+		HBox buttons = new HBox(30, BAR ,SpotVal1 , SpotVal4, SpotVal8, SpotVal10);
 		buttons.setAlignment(Pos.BOTTOM_CENTER);
 		
 		VBox paneCenter = new VBox(30,BAR);
@@ -249,7 +323,21 @@ public class JavaFXTemplate extends Application {
 	}
 	
 	
-
+	public Scene roundsScene() {
+		
+		Text textMessage = new Text("Select Your Rounds");
+		
+		BorderPane Pane = new BorderPane();
+		HBox buttons = new HBox(30,BAR ,RoundVal1 , RoundVal2, RoundVal3, RoundVal4);
+		VBox paneCenter = new VBox(30,BAR,textMessage);
+		paneCenter.getChildren().add(buttons);
+		Pane.setCenter(paneCenter);
+		
+		return new Scene(Pane, 600, 450);
+		
+	}
+	
+	
+	
+	
 }
-	
-	
