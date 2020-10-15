@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 
 import javafx.application.Application;
 import javafx.event.ActionEvent;
@@ -36,18 +37,20 @@ public class JavaFXTemplate extends Application {
 		//stores scenes
 		HashMap<String, Scene> sceneMap;
 		
-		
+
 		public int Spot;
 		public int SpotCount;
 		public int Round;
 		public int RoundCount;
+		public int drowCount = 20;
+		public int MatchNums = 0; 
 		
 		
 		
-		public int Score = 0; 
+		public int TScore = 0; 
 		
-		ArrayList<Integer> UserList;
-		 
+		public ArrayList<Integer> UserList;
+		public ArrayList<Integer> CompList;
 		 
 		public int getSpot() {
 			return Spot;
@@ -88,6 +91,7 @@ public class JavaFXTemplate extends Application {
 		
 		sceneMap = new HashMap<String,Scene>();
 		UserList = new ArrayList<Integer>();
+		CompList = new ArrayList<Integer>();
 
 
 		primaryStage.setTitle("Keno Main Menu");//Setting the title of the window.
@@ -376,6 +380,8 @@ public class JavaFXTemplate extends Application {
 	grid.setAlignment(Pos.CENTER);
 	
 	 int button_num = 1;
+	 
+	 String h = "vedant";
 
      for(int x = 0; x < 8; x++) {
          for(int i = 0; i < 10; i++) {
@@ -392,26 +398,26 @@ public class JavaFXTemplate extends Application {
                  public void handle(ActionEvent e) {
                 	
                 	 
+                	// System.out.println(" \n SpotCount " + SpotCount);
                 	 if (SpotCount > 0) {
-                		 String s = ((Button)e.getSource()).getText();
+                     // TODO Auto-generated method stub
+                     System.out.println(" \n button pressed: " + ((Button)e.getSource()).getText());
+                     
+                     String s = ((Button)e.getSource()).getText();		 
+                     UserList.add(Integer.valueOf(s));
+                     
+                     Button b1 = (Button)e.getSource();
+                     b1.setDisable(true);
+                     
 
-                			 System.out.println(" \n button pressed: " + ((Button)e.getSource()).getText());
-                     		 
-                             UserList.add(Integer.valueOf(s));
-                             
-                             Button b1 = (Button)e.getSource();
-                             b1.setDisable(true);
-   
-
-                           for (Integer e1 :UserList  ) {
-                             System.out.println(" " + e1);}
-                             
-                             SpotCount--;
-                		 }
+//                     for (Integer e1 :UserList  ) {
+//                    	 System.out.println(" " + e1);}
+                     
+                     SpotCount--;
+                 }
                }
              });
              grid.add(b1, i, x);
-             
 
          }
 
@@ -420,26 +426,72 @@ public class JavaFXTemplate extends Application {
  	//====================The Grid END======================
    //====================The Score Borad======================
      
+     
+     
      int val = 20;
      Text Score = new Text(" Score :");
-     Text drawing = new Text("Drawing left:" + val);
+     Text drawing = new Text("Drawing left:");
      
      TextField ScoreData = new TextField();
      ScoreData.setEditable(false);
      ScoreData.setMouseTransparent(true);
      ScoreData.setFocusTraversable(false);
+     ScoreData.setText(" 0 ");
      
-     TextField drawsLeft = new TextField("20");
+     
+     TextField drawsLeft = new TextField();
      drawsLeft.setEditable(false);
      drawsLeft.setMouseTransparent(true);
      drawsLeft.setFocusTraversable(false);
+     drawsLeft.setText(" 20 ");
      
      Button Drow = new Button(" Drow ");
      
      Button Clear = new Button("Clear");
+    
      
      
      
+     Drow.setOnAction(new EventHandler<ActionEvent>()
+	 {
+
+		@Override
+		public void handle(ActionEvent event) {
+		if(SpotCount == 0 && drowCount != 0){
+			
+			Clear.setDisable(true);
+			
+			drowCount--;
+			String p = String.valueOf(drowCount); 
+			drawsLeft.setText( p );
+			
+			
+			Random rand = new Random();
+			int num = 1 + rand.nextInt(80);
+			while(CompList.contains(num)) {
+				num = 1 + rand.nextInt(80);
+			}
+			CompList.add(num);
+			
+			
+			
+			if(UserList.contains(num)) {
+				MatchNums++;
+			}
+			
+			TScore = ScoreCal(MatchNums);
+			p = String.valueOf(TScore);
+			ScoreData.setText( p );
+			
+			
+		
+			for (Integer e1 :CompList  ) {
+				System.out.println(" " + e1);}
+			}	
+		}
+	});
+
+
      
      Clear.setOnAction(new EventHandler<ActionEvent>()
     		 {
@@ -450,25 +502,63 @@ public class JavaFXTemplate extends Application {
 					SpotCount = Spot;
 					UserList.clear();
 					
-					for(Node child: grid.getChildren()) {
-						
+					for(Node child: grid.getChildren()) {	
 						child.setDisable(false);
-					}
-					
-					
+					}	
 				}
-    	 
      });
+     
+     
+     
+     
        
      
      
      
    //====================The Score Borad END======================
-	return new Scene( new VBox  (50 , BAR, new HBox(50, grid) , new HBox(50 ,Score, ScoreData , Clear),
-						new HBox(Drow, drawing, drawsLeft)), 900, 700);
+	return new Scene( new VBox  (50 , BAR, new HBox(50, grid) , new HBox(50 ,Score, ScoreData , Clear), new HBox (50, Drow, drawing, drawsLeft )  ), 900, 700);
 	}
+	
+	
 
+	
+	public int ScoreCal(int num) {
+		
+		
+	if (num == 1) {
+			return 1;
+		}
+		else if(num == 2 ) {
+			return 11; 
+		}
+		else if(num == 3) {
+			return 27;  
+		}
+		else if(num == 4) {
+			return 75;
+		}
+		else if(num == 5) {
+			return  420;
+		}
+		else if(num == 6) {
+			return  1100;
+		}
+		else if(num == 7) {
+			return  4500;
+		}
+		else if(num == 8) {
+			return  10000;
+		}
+		
+		else if(num == 9) {
+			return  30000;
+		}
+		else if(num == 10) {
+			return  100000;
+		}
 
+		return 0;
+	}
 	
 	
 	
