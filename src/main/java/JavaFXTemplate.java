@@ -6,6 +6,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -391,26 +392,26 @@ public class JavaFXTemplate extends Application {
                  public void handle(ActionEvent e) {
                 	
                 	 
-                	// System.out.println(" \n SpotCount " + SpotCount);
                 	 if (SpotCount > 0) {
-                     // TODO Auto-generated method stub
-                     System.out.println(" \n button pressed: " + ((Button)e.getSource()).getText());
-                     
-                     String s = ((Button)e.getSource()).getText();		 
-                     UserList.add(Integer.valueOf(s));
-                     
-                     Button b1 = (Button)e.getSource();
-                     b1.setDisable(true);
-                     
+                		 String s = ((Button)e.getSource()).getText();
 
-//                     for (Integer e1 :UserList  ) {
-//                    	 System.out.println(" " + e1);}
-                     
-                     SpotCount--;
-                 }
+                			 System.out.println(" \n button pressed: " + ((Button)e.getSource()).getText());
+                     		 
+                             UserList.add(Integer.valueOf(s));
+                             
+                             Button b1 = (Button)e.getSource();
+                             b1.setDisable(true);
+   
+
+                           for (Integer e1 :UserList  ) {
+                             System.out.println(" " + e1);}
+                             
+                             SpotCount--;
+                		 }
                }
              });
              grid.add(b1, i, x);
+             
 
          }
 
@@ -419,26 +420,52 @@ public class JavaFXTemplate extends Application {
  	//====================The Grid END======================
    //====================The Score Borad======================
      
-     
+     int val = 20;
      Text Score = new Text(" Score :");
+     Text drawing = new Text("Drawing left:" + val);
      
      TextField ScoreData = new TextField();
      ScoreData.setEditable(false);
      ScoreData.setMouseTransparent(true);
      ScoreData.setFocusTraversable(false);
      
+     TextField drawsLeft = new TextField("20");
+     drawsLeft.setEditable(false);
+     drawsLeft.setMouseTransparent(true);
+     drawsLeft.setFocusTraversable(false);
+     
      Button Drow = new Button(" Drow ");
      
+     Button Clear = new Button("Clear");
      
      
      
      
+     Clear.setOnAction(new EventHandler<ActionEvent>()
+    		 {
+
+				@Override
+				public void handle(ActionEvent event) {
+				
+					SpotCount = Spot;
+					UserList.clear();
+					
+					for(Node child: grid.getChildren()) {
+						
+						child.setDisable(false);
+					}
+					
+					
+				}
+    	 
+     });
        
      
      
      
    //====================The Score Borad END======================
-	return new Scene( new VBox  (50 , BAR, new HBox(50, grid) , new HBox(50 ,Score, ScoreData , Drow) ), 900, 700);
+	return new Scene( new VBox  (50 , BAR, new HBox(50, grid) , new HBox(50 ,Score, ScoreData , Clear),
+						new HBox(Drow, drawing, drawsLeft)), 900, 700);
 	}
 
 
