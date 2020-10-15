@@ -401,6 +401,7 @@ public class JavaFXTemplate extends Application {
                      
                      Button b1 = (Button)e.getSource();
                      b1.setDisable(true);
+                     
 
 //                     for (Integer e1 :UserList  ) {
 //                    	 System.out.println(" " + e1);}
@@ -416,17 +417,30 @@ public class JavaFXTemplate extends Application {
      }
 	
  	//====================The Grid END======================
-	
-
+   //====================The Score Borad======================
+     
+     
+     Text Score = new Text(" Score :");
+     
+     TextField ScoreData = new TextField();
+     ScoreData.setEditable(false);
+     ScoreData.setMouseTransparent(true);
+     ScoreData.setFocusTraversable(false);
+     
+     Button Drow = new Button(" Drow ");
      
      
      
      
      
-	
-	
-	return new Scene(new VBox(50 ,BAR, grid), 900, 700);
+       
+     
+     
+     
+   //====================The Score Borad END======================
+	return new Scene( new VBox  (50 , BAR, new HBox(50, grid) , new HBox(50 ,Score, ScoreData , Drow) ), 900, 700);
 	}
+
 
 	
 	
