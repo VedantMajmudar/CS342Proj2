@@ -15,6 +15,8 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
@@ -31,282 +33,355 @@ import javafx.scene.layout.StackPane;
 
 public class JavaFXTemplate extends Application {
 
-		private MenuBar BAR;
-		private Button MenuButton;
 		
-		public  String Data;
+		
+	//++++++++++++++++ Creating Attributes keep trace of thing going in the game. +++++++++++++
 		
 		//stores scenes
 		HashMap<String, Scene> sceneMap;
 		
-
-		public int Spot;
-		public int SpotCount;
-		public int Round;
-		public int RoundCount;
-		public int drowCount = 20;
-		public int MatchNums = 0; 
+		private MenuBar BAR;//private Button MenuButton, for all the use in all the Screens ;
 		
 		
+		public int Spot;//Attribute to store the number of spot chosen by the user
+		public int Round;//Attribute to store the number of Rounds chosen by the user
+		public int SpotCount;//Attribute to  keep running count of Spot
+		public int RoundCount;//Attribute to  keep running count of Rounds
+		public int drowCount = 20;//Attribute to  keep running count of Draws in every round
+		public int MatchNums = 0; //Attribute to  keep running count of numbers matched in every round;
+		public  String Data;//Attributer to display the score in the game 
 		
-		public int TScore = 0; 
-		public int GameScore = 0;
 		
-		public ArrayList<Integer> UserList;
-		public ArrayList<Integer> CompList;
+		public int TScore = 0; //Attribute to store the Score per Round 
+		public int GameScore = 0;//Attribute to store the Score in total in all the Round. 
+		
+		public ArrayList<Integer> UserList; // ArrayList to store number picked by the user.
+		public ArrayList<Integer> CompList; // ArrayList to store numbers picked by the Computer.
 		 
-		public int getSpot() {
-			return Spot;
-		}
-
-
-
-
-		private Button SpotVal1;
-		private Button SpotVal4;
-		private Button SpotVal8;
-		private Button SpotVal10;
-		private Button start;
 		
+		public int getSpot() {
+			return Spot; // ???????????????????
+		}
+		
+		//++++++++++++++++ END // Attributes keep trace of thing going in the game. +++++++++++++
+		
+
+		//++++++++++++++++ Creating buttons for the Welcome Screen.+++++++++++++++++++
+		private Button start;
 		Text Welcome;
 		
+		//++++++++++++++++ END // buttons for the Welcome Screen.+++++++++++++++++++
 		
-		private Button RoundVal1;
-		private Button RoundVal2;
-		private Button RoundVal3;
-		private Button RoundVal4;
-		
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		launch(args); // Set up javafx as an application 
-		
-		JavaFXTemplate hi = new JavaFXTemplate();
-		
-		System.out.print("Value of Spot == " + hi.getSpot() );
-		
-		
-	}
-
-	//feel free to remove the starter code from this method
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		// TODO Auto-generated method stub
-		
-		sceneMap = new HashMap<String,Scene>();
-		UserList = new ArrayList<Integer>();
-		CompList = new ArrayList<Integer>();
 
 
-		primaryStage.setTitle("Keno Main Menu");//Setting the title of the window.
+		//++++++++++++++++Creating buttons for the Spot Choosing Screen.+++++++++++++++++++
 
-		
-		
-//==================++++++++++++MENU+++++++++++=================		
-		
-		BAR = new MenuBar(); //a menu bar takes menus as children
-		//MenuButton = new Button("Menu"); //Menu button on the Menu bar 
-		
-		Menu mOne = new Menu("Menu"); //a menu goes inside a menu bar and with all the windows 
-		
-		
-		
-		MenuItem iOne = new MenuItem("Rule"); //MenuItem which will lunch  a new window for Rules.
-		MenuItem iTwo = new MenuItem("Odds of winning"); //MenuItem which will lunch  a new window for  Odds of winning.
-		MenuItem iThree = new MenuItem("Exit"); // Terminate the ; 
-		
-		
-		
-		mOne.getItems().add(iOne); //add menu item to first menu
-		mOne.getItems().add(iTwo);
-		mOne.getItems().add(iThree);
-		
-		BAR.getMenus().addAll(mOne); //add our menu to the menus to the menu bar
-		
-		
-		//event handler for menu item
-			//Setting Exit Button to terminate the program
-			iThree.setOnAction((ActionEvent t) -> {
-					System.exit(0);
-				}); 
-			//
-	
-			iOne.setOnAction(e -> RulesWindow.Rules());
-			iTwo.setOnAction(e -> OddsWinWindow.Odds());
-			
-//==================++++++++++++MENU+++++++++++=================
-			
-			
-			
-			
-	
-		      Welcome = new Text();     
-		      Welcome.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 50));
-		      Welcome.setFill(Color.ROYALBLUE);
-		      Welcome.setStrokeWidth(2);
-		      Welcome.setText("Welcome to the Game\n");		
-			
-
-			
-			
-	
-//==================++++++++++++Rounds+++++++++++=================
-		      
-		      
+		private ToggleButton SpotVal1;
+		private ToggleButton SpotVal4;
+		private ToggleButton SpotVal8;
+		private ToggleButton SpotVal10;
+		private Button SpotContinue;
 				
+		
+		
+		//++++++++++++++++ END // buttons for the Spot Choosing Screen.+++++++++++++++++++
+		
+		
+		//++++++++++++++++Creating buttons for the Rounds Choosing Screen.+++++++++++++++++++
+		
+		private ToggleButton RoundVal1;
+		private ToggleButton RoundVal2;
+		private ToggleButton RoundVal3;
+		private ToggleButton RoundVal4;
+		private Button RoundContinue;
+
+		
+		//++++++++++++++++ END // buttons for the Rounds Choosing Screen.+++++++++++++++++++
+		
+	
+		
+		public static void main(String[] args) {
+			// TODO Auto-generated method stub
+			launch(args); // Set up javafx as an application 
+			
+			JavaFXTemplate hi = new JavaFXTemplate();
+			
+			System.out.print("Value of Spot == " + hi.getSpot() );
+			
+			
+		}
+
+//+++++++++++++++++++++++++++++++++++++++++++ Starting ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+		
+		// Starting the game and Initializing  all the thing we need, during the game. 
+		@Override
+		public void start(Stage primaryStage) throws Exception {
+			
+			// TODO Auto-generated method stub
+			
+			sceneMap = new HashMap<String,Scene>(); // Initializing scenes storing H ashMap
+			UserList = new ArrayList<Integer>();	// Initializing the array list for the User picks 
+			CompList = new ArrayList<Integer>();	// Initializing the array list for the computer picks
+		
+		
+			primaryStage.setTitle("Keno Game Welcome !!!");//Setting the title of the Welcome Window.
+
+		
+		//================== Creating Menu and setting is Actions=================		
+		
+			BAR = new MenuBar(); //A menu bar takes menus as children
+
+			Menu mOne = new Menu("Menu"); //a menu goes inside a menu bar and with all the windows 
+		
+			MenuItem iOne = new MenuItem("Rule"); //MenuItem which will lunch  a new window for Rules.
+			MenuItem iTwo = new MenuItem("Odds of winning"); //MenuItem which will lunch  a new window for  Odds of winning.
+			MenuItem iThree = new MenuItem("Exit"); // Terminate the Game; 
+			MenuItem iFour = new MenuItem("How to Play"); ///MenuItem which will lunch  a new window for giving ore information on how to play the game.
+		
+		
+			mOne.getItems().add(iOne); // Adding button for the rules in the menu bar
+			mOne.getItems().add(iTwo); // Adding the button for the odd of winning data window in the menu bar
+			mOne.getItems().add(iFour);	// Adding the button for the "How to Play" Data window in the menu bar
+			mOne.getItems().add(iThree); // Adding Exit Button in 
+			
+			BAR.getMenus().addAll(mOne); //Add our menu to the menus to the menu bar
+		
+		
+			
+			iThree.setOnAction((ActionEvent t) -> {System.exit(0);});//Setting Action for Exit Button to terminate the program
+			iOne.setOnAction(e -> RulesWindow.Rules());// Setting Action for Rules Button
+			iTwo.setOnAction(e -> OddsWinWindow.Odds());//Setting Actions for Odds Button 
+			iFour.setOnAction(e -> HowToPlay.PlayPrompt());// Setting Action for "How to Play" Button.
+			
+		//================== END Menu and setting is Actions=================	
+			
+		
+			
+		//================== Initializing and setting action needed for the Welcome Window=================	
+	
+		      Welcome = new Text();     //Setting Text for the welcome window. 
+		      Welcome.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 50)); // Making Text Fancy 
+		      Welcome.setFill(Color.ROYALBLUE); // Adding color to the text 
+		      Welcome.setStrokeWidth(2); // Setting the Size of the Fonts 
+		      Welcome.setText("Welcome to the Game\n");	// Setting text. 
+			
+	    //================== END Initializing and setting action needed for the Welcome Window=================	
+			
+			
+        //================== Initializing and setting action needed for the Rounds Window=================
+		      
+		      
+				//Action for toggle button 1
 				EventHandler<ActionEvent> RoundVal1Event = new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent event) {
 						// TODO Auto-generated method stub
-						Round = 1;	
-						System.out.print("Value of Round == " + Round);
-						primaryStage.setScene(sceneMap.get("game"));
-						RoundCount = Round;
 						
+						Round = 1;	// Setting round and Round Count to 1
+						RoundCount = Round; // Setting round and Round Count to 1
+						//System.out.print("Value of Round == " + Round);
+						RoundContinue.setDisable(false); //Making Continue button available. 			
 					} 
 		            
 		        }; 
-		        
+		      //Action for toggle button 2
 		        EventHandler<ActionEvent> RoundVal2Event = new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent event) {
 						// TODO Auto-generated method stub
-						Round = 2;	
-						System.out.print("Value of Round == " + Round);
-						primaryStage.setScene(sceneMap.get("game"));
-						RoundCount = Round;
+						
+						Round = 2;	// Setting round and Round Count to 2
+						RoundCount = Round;// Setting round and Round Count to 2
+						//System.out.print("Value of Round == " + Round);
+						RoundContinue.setDisable(false);//Making Continue button available. 
+						
 					} 
 		            
 		        }; 
+		      //Action for toggle button 3
 		        EventHandler<ActionEvent> RoundVal3Event = new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent event) {
 						// TODO Auto-generated method stub
-						Round = 3;	
-						System.out.print("Value of Round == " + Round);
-						primaryStage.setScene(sceneMap.get("game"));
-						RoundCount = Round;
+						
+						Round = 3;	// Setting round and Round Count to 3
+						RoundCount = Round; // Setting round and Round Count to 3
+						//System.out.print("Value of Round == " + Round);
+						RoundContinue.setDisable(false);//Making Continue button available. 
+						 
 					} 
 		            
-		        }; EventHandler<ActionEvent> RoundVal4Event = new EventHandler<ActionEvent>() {
+		        }; 
+		      //Action for toggle button 4
+		        EventHandler<ActionEvent> RoundVal4Event = new EventHandler<ActionEvent>() {
 
 					@Override
 					public void handle(ActionEvent event) {
 						// TODO Auto-generated method stub
-						Round = 4;	
-						System.out.print("Value of Round == " + Round);
-						primaryStage.setScene(sceneMap.get("game"));
-						RoundCount = Round;
-						
+						Round = 4;	// Setting round and Round Count to 4
+						RoundCount = Round;// Setting round and Round Count to 4
+						//System.out.print("Value of Round == " + Round);
+						RoundContinue.setDisable(false);//Making Continue button available. 			
 					} 
 		            
 		        }; 
 
-		        RoundVal1 = new Button(" 1 ");
-		        RoundVal2 = new Button(" 2 ");
-		        RoundVal3 = new Button(" 3 ");
-		        RoundVal4 = new Button(" 4 ");
 
+		        
+		        
+		        //Setting up four Toggle Button to chose number of rounds the player wants to play.
+		        RoundVal1 = new ToggleButton(" 1 ");
+		        RoundVal2 = new ToggleButton(" 2 ");
+		        RoundVal3 = new ToggleButton(" 3 ");
+		        RoundVal4 = new ToggleButton(" 4 ");
+		        
+		        //Setting up the toggle group. 
+		        ToggleGroup RoundGroup = new ToggleGroup();
+		       
+		        RoundVal1.setToggleGroup(RoundGroup);
+		        RoundVal2.setToggleGroup(RoundGroup);
+		        RoundVal3.setToggleGroup(RoundGroup);
+		        RoundVal4.setToggleGroup(RoundGroup);
+		        
+		        //Setting Up Continue button to Continue playing the game. 
+		        RoundContinue = new Button(" Continue the Game ");
+		        RoundContinue.setDisable(true);
+
+		        //Setting up Action for all the toggle and Continue button. 
 		        RoundVal1.setOnAction(RoundVal1Event);
 		        RoundVal2.setOnAction(RoundVal2Event);
 		        RoundVal3.setOnAction(RoundVal3Event);
 		        RoundVal4.setOnAction(RoundVal4Event);
+		        RoundContinue.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
+		       
 				
 		      
-//==================++++++++++++Rounds End+++++++++++=================
+	      //==================END  Initializing and setting action needed for the Rounds Window=================
 		      
 		      
-//==================++++++++++++SPot+++++++++++=================
-			
-			
-			EventHandler<ActionEvent> SpotVal1Event = new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					Spot = 1;	
-					 SpotCount = Spot;
-					System.out.print("Value of Spot == " + Spot);
-					primaryStage.setScene(sceneMap.get("rounds"));
-					
-				} 
-	            
-	        }; 
-	        
-	        EventHandler<ActionEvent> SpotVal4Event = new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					Spot = 4;
-					 SpotCount = Spot;
-					System.out.print("Value of Spot == " + Spot);
-					primaryStage.setScene(sceneMap.get("rounds"));
-					
-					
-				} 
-	            
-	        }; 
-	        EventHandler<ActionEvent> SpotVal8Event = new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					Spot = 8;	
-					 SpotCount = Spot;
-					System.out.print("Value of Spot == " + Spot);
-					primaryStage.setScene(sceneMap.get("rounds"));
-				} 
-	            
-	        }; EventHandler<ActionEvent> SpotVal10Event = new EventHandler<ActionEvent>() {
-
-				@Override
-				public void handle(ActionEvent event) {
-					// TODO Auto-generated method stub
-					Spot = 10;	
-					 SpotCount = Spot;
-					System.out.print("Value of Spot == " + Spot);
-					primaryStage.setScene(sceneMap.get("rounds"));
-				} 
-	            
-	        }; 
-
-			SpotVal1 = new Button(" 1 ");
-			SpotVal4 = new Button(" 4 ");
-			SpotVal8 = new Button(" 8 ");
-			SpotVal10 = new Button(" 10 ");
-
-			SpotVal1.setOnAction(SpotVal1Event);
-			SpotVal4.setOnAction(SpotVal4Event);
-			SpotVal8.setOnAction(SpotVal8Event);
-			SpotVal10.setOnAction(SpotVal10Event);
-			
-			
-			
-			start = new Button("PLAY KENO");
-			start.setTextAlignment(TextAlignment.CENTER);
-			
-			start.setOnAction(e-> primaryStage.setScene(sceneMap.get("spots")));
-			
-			
-			
-//==================++++++++++++SPot+++++++++++=================		
-			
-		sceneMap.put("scene", welcomeScene());
-		sceneMap.put("spots", spotScene());
-		sceneMap.put("rounds", roundsScene());
-		sceneMap.put("game", GameSecne());
+	      //================== Initializing and setting action needed for the Spot Window=================
+		        
+		        
+				EventHandler<ActionEvent> SpotVal1Event = new EventHandler<ActionEvent>() {
 		
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						
+						Spot = 1;	
+						SpotCount = Spot;
+						System.out.print("Value of Spot == " + Spot);
+						SpotContinue.setDisable(false);//Making Continue button available. 			
+						
+					} 
+		            
+		        }; 
+		        
+		        EventHandler<ActionEvent> SpotVal4Event = new EventHandler<ActionEvent>() {
+		
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						Spot = 4; // Setting spot and spot Count to 4
+						SpotCount = Spot; // Setting spot and spot Count to 4
+						//System.out.print("Value of Spot == " + Spot);
+						SpotContinue.setDisable(false);//Making Continue button available. 			
+						
+					} 
+		            
+		        }; 
+		        EventHandler<ActionEvent> SpotVal8Event = new EventHandler<ActionEvent>() {
+		
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						Spot = 8;	// Setting spot and spot Count to 8
+						SpotCount = Spot; // Setting spot and spot Count to 8
+						//System.out.print("Value of Spot == " + Spot);
+						SpotContinue.setDisable(false);//Making Continue button available. 			
+						
+					} 
+		            
+		        }; EventHandler<ActionEvent> SpotVal10Event = new EventHandler<ActionEvent>() {
+		
+					@Override
+					public void handle(ActionEvent event) {
+						// TODO Auto-generated method stub
+						Spot = 10;	// Setting spot and spot Count to 10
+						SpotCount = Spot; // Setting spot and spot Count to 10
+						//System.out.print("Value of Spot == " + Spot);
+						SpotContinue.setDisable(false);//Making Continue button available. 			
+					} 
+		            
+		        }; 
+		
+		        //Setting up four Toggle Button to chose number of Spot the player wants to play.
+				SpotVal1 = new ToggleButton(" 1 ");
+				SpotVal4 = new ToggleButton(" 4 ");
+				SpotVal8 = new ToggleButton(" 8 ");
+				SpotVal10 = new ToggleButton(" 10 ");
+				
+				//Setting up the toggle group. 
+				ToggleGroup SpotGroup = new ToggleGroup();
+			       
+				SpotVal1.setToggleGroup(SpotGroup);
+				SpotVal4.setToggleGroup(SpotGroup);
+				SpotVal8.setToggleGroup(SpotGroup);
+				SpotVal10.setToggleGroup(SpotGroup);
+				
+				//Setting Up Continue button to Continue playing the game. 
+				SpotContinue = new Button(" Continue the Game ");
+				SpotContinue.setDisable(true);
+				
+				//Setting up Action for all the toggle and Continue button. 
+				SpotVal1.setOnAction(SpotVal1Event);
+				SpotVal4.setOnAction(SpotVal4Event);
+				SpotVal8.setOnAction(SpotVal8Event);
+				SpotVal10.setOnAction(SpotVal10Event);
+				
+				SpotContinue.setOnAction(e -> primaryStage.setScene(sceneMap.get("rounds")));
+					
+		//================== END Initializing and setting action needed for the Spot Window=================	
+				
+				
+		//================== Initializing and setting action needed for the Welcome Window=================		
+				
+				start = new Button("PLAY KENO");
+				start.setTextAlignment(TextAlignment.CENTER);
+				start.setOnAction(e-> primaryStage.setScene(sceneMap.get("spots")));
+				
+		//================== END Initializing and setting action needed for the Spot Window=================			
+				
+				
+		//================== Adding the Scenes in the HashMap================
+				
+				sceneMap.put("scene", welcomeScene());
+				sceneMap.put("spots", spotScene());
+				sceneMap.put("rounds", roundsScene());
+				sceneMap.put("game", GameSecne());
+				
+		//================== END Adding the Scenes in the HashMap================
+				
+		
+		//================== Setting up Primary Stage.================		
 			
-		//new scene with root node
-		primaryStage.setScene(sceneMap.get("scene")); //set the scene in the stage
-		primaryStage.show(); //make visible to the user
-		
-		
+				//new scene with root node
+				primaryStage.setScene(sceneMap.get("scene")); //set the scene in the stage
+				primaryStage.show(); //make visible to the user
+				
+		//================== ENDSetting up Primary Stage.================		
 		
 	}
+		
+		
+
+//+++++++++++++++++++++++++++++++++++++++++++ END Start ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+		
+
 	
 	/*
 	 * method to populate a GridPane with buttons and attach a handler to each button
@@ -335,18 +410,21 @@ public class JavaFXTemplate extends Application {
 		textMessage.setFill(Color.ROYALBLUE);
 		textMessage.setStrokeWidth(2);
 	      
-		Menu spotMenu = new Menu("menu");
+		
+		
+		//Menu spotMenu = new Menu("menu");
 		
 		BorderPane Pane = new BorderPane();
 		//Pane.setPadding(new Insets(70));
 		
-		HBox buttons = new HBox(30, BAR ,SpotVal1 , SpotVal4, SpotVal8, SpotVal10);
+		HBox buttons = new HBox(30, BAR ,SpotVal1 , SpotVal4, SpotVal8, SpotVal10, SpotContinue);
 		buttons.setAlignment(Pos.BOTTOM_CENTER);
 		
 		VBox paneCenter = new VBox(30,BAR);
+		
 		textMessage.setX(100);
 		textMessage.setY(100);
-		
+		//paneCenter.getChildren().add(BAR);
 		paneCenter.getChildren().add(textMessage);
 		paneCenter.getChildren().add(buttons);
 		
@@ -362,7 +440,7 @@ public class JavaFXTemplate extends Application {
 		Text textMessage = new Text("Select Your Rounds");
 		
 		BorderPane Pane = new BorderPane();
-		HBox buttons = new HBox(30,BAR ,RoundVal1 , RoundVal2, RoundVal3, RoundVal4);
+		HBox buttons = new HBox(30,BAR ,RoundVal1 , RoundVal2, RoundVal3, RoundVal4, RoundContinue);
 		VBox paneCenter = new VBox(30,BAR,textMessage);
 		paneCenter.getChildren().add(buttons);
 		Pane.setCenter(paneCenter);
