@@ -362,7 +362,6 @@ public class JavaFXTemplate extends Application {
 		VBox paneCenter = new VBox(30,BAR,textMessage);
 		paneCenter.getChildren().add(buttons);
 		Pane.setCenter(paneCenter);
-		
 		return new Scene(Pane, 600, 450);
 		
 	}
@@ -431,6 +430,16 @@ public class JavaFXTemplate extends Application {
      int val = 20;
      Text Score = new Text(" Score :");
      Text drawing = new Text("Drawing left:");
+     Text Round = new Text("Rounds Left ");
+     Text NumMatch = new Text("Numbers Match :");
+     
+     TextField Matched = new TextField();
+     Matched.setEditable(false);
+     Matched.setMouseTransparent(true);
+     Matched.setFocusTraversable(false);
+     
+     Matched.setText();
+     
      
      TextField ScoreData = new TextField();
      ScoreData.setEditable(false);
@@ -445,23 +454,53 @@ public class JavaFXTemplate extends Application {
      drawsLeft.setFocusTraversable(false);
      drawsLeft.setText(" 20 ");
      
-     Button Drow = new Button(" Drow ");
      
+     TextField RoundsLeft = new TextField();
+     RoundsLeft.setEditable(false);
+     RoundsLeft.setMouseTransparent(true);
+     RoundsLeft.setFocusTraversable(false);
+     RoundsLeft.setText(String.valueOf(RoundCount));
+     
+     Button Drow = new Button(" Drow ");
      Button Clear = new Button("Clear");
     
+     Button NextRound =  new Button ("NextRound");
+     NextRound.setDisable(true);
      
      
+     
+     
+     
+     NextRound.setOnAction(new EventHandler<ActionEvent>()
+	 {
+		@Override
+		public void handle(ActionEvent event) {
+			
+			
+			
+			
+			}
+		});
+     
+     
+   
      
      Drow.setOnAction(new EventHandler<ActionEvent>()
 	 {
 
 		@Override
 		public void handle(ActionEvent event) {
-		if(SpotCount == 0 && drowCount != 0){
+		if(SpotCount == 0 && drowCount != 0 ){
+			
 			
 			Clear.setDisable(true);
 			
 			drowCount--;
+			
+			if(drowCount == 0) {
+				RoundCount--;
+			}
+			
 			String p = String.valueOf(drowCount); 
 			drawsLeft.setText( p );
 			
@@ -482,12 +521,19 @@ public class JavaFXTemplate extends Application {
 			TScore = ScoreCal(MatchNums);
 			p = String.valueOf(TScore);
 			ScoreData.setText( p );
-			
-			
 		
-			for (Integer e1 :CompList  ) {
-				System.out.println(" " + e1);}
-			}	
+			
+				}
+		
+		
+		else if (RoundCount > 0 && drowCount == 0){
+			
+			NextRound.setDisable(false);
+			
+		}
+		
+		
+			
 		}
 	});
 
@@ -511,12 +557,8 @@ public class JavaFXTemplate extends Application {
      
      
      
-       
-     
-     
-     
    //====================The Score Borad END======================
-	return new Scene( new VBox  (50 , BAR, new HBox(50, grid) , new HBox(50 ,Score, ScoreData , Clear), new HBox (50, Drow, drawing, drawsLeft )  ), 900, 700);
+	return new Scene( new VBox  (50 , BAR, new HBox(50, grid) , new HBox(50 ,Score, ScoreData , Clear, NextRound), new HBox (50, Drow, drawing, drawsLeft, Round, RoundsLeft ), new HBox(50, ) ), 900, 700);
 	}
 	
 	
