@@ -34,6 +34,8 @@ public class JavaFXTemplate extends Application {
 		private MenuBar BAR;
 		private Button MenuButton;
 		
+		public  String Data;
+		
 		//stores scenes
 		HashMap<String, Scene> sceneMap;
 		
@@ -48,6 +50,7 @@ public class JavaFXTemplate extends Application {
 		
 		
 		public int TScore = 0; 
+		public int GameScore = 0;
 		
 		public ArrayList<Integer> UserList;
 		public ArrayList<Integer> CompList;
@@ -196,6 +199,7 @@ public class JavaFXTemplate extends Application {
 						System.out.print("Value of Round == " + Round);
 						primaryStage.setScene(sceneMap.get("game"));
 						RoundCount = Round;
+						
 					} 
 		            
 		        }; 
@@ -379,8 +383,7 @@ public class JavaFXTemplate extends Application {
 	grid.setAlignment(Pos.CENTER);
 	
 	 int button_num = 1;
-	 
-	 String h = "vedant";
+
 
      for(int x = 0; x < 8; x++) {
          for(int i = 0; i < 10; i++) {
@@ -426,19 +429,26 @@ public class JavaFXTemplate extends Application {
    //====================The Score Borad======================
      
      
-     
-     int val = 20;
+     //+++++++++++++++++++ ALL buttons, text , textfield setups+++++++++++++++;
+
      Text Score = new Text(" Score :");
      Text drawing = new Text("Drawing left:");
      Text Round = new Text("Rounds Left ");
-     Text NumMatch = new Text("Numbers Match :");
+     Text NumPick = new Text("Numbers picked by game:");
+     Text TotalGameScore = new Text("The Score of the total Game are :");
      
-     TextField Matched = new TextField();
-     Matched.setEditable(false);
-     Matched.setMouseTransparent(true);
-     Matched.setFocusTraversable(false);
+     TextField TotalGameScoreData = new TextField();
+     TotalGameScoreData.setEditable(false);
+     TotalGameScoreData.setMouseTransparent(true);
+     TotalGameScoreData.setFocusTraversable(false);
+     TotalGameScoreData.setText(" 0 ");
+
      
-     Matched.setText();
+     TextField Picks = new TextField();
+     Picks.setEditable(false);
+     Picks.setMouseTransparent(true);
+     Picks.setFocusTraversable(false);
+     Picks.setPrefWidth(450);
      
      
      TextField ScoreData = new TextField();
@@ -459,7 +469,7 @@ public class JavaFXTemplate extends Application {
      RoundsLeft.setEditable(false);
      RoundsLeft.setMouseTransparent(true);
      RoundsLeft.setFocusTraversable(false);
-     RoundsLeft.setText(String.valueOf(RoundCount));
+    
      
      Button Drow = new Button(" Drow ");
      Button Clear = new Button("Clear");
@@ -467,7 +477,7 @@ public class JavaFXTemplate extends Application {
      Button NextRound =  new Button ("NextRound");
      NextRound.setDisable(true);
      
-     
+   //+++++++++++++++++++ END ALL buttons, text , textfield setups+++++++++++++++;   
      
      
      
@@ -475,11 +485,31 @@ public class JavaFXTemplate extends Application {
 	 {
 		@Override
 		public void handle(ActionEvent event) {
+			if(RoundCount!=0)
+			{
+			//GameScore = GameScore + TScore;
 			
+			TScore = 0; 
+			UserList.clear();
+			CompList.clear();
+			SpotCount = Spot;
+			drowCount = 20;
+			MatchNums = 0;
+			Picks.setText("  ");
+
+			ScoreData.setText(" 0 ");
 			
+			 drawsLeft.setText(" 20 ");
 			
+		
 			
+			for(Node child: grid.getChildren()) {	
+				child.setDisable(false);
+			}	
+			Clear.setDisable(false);
+			Drow.setDisable(false);
 			}
+		}
 		});
      
      
@@ -516,24 +546,44 @@ public class JavaFXTemplate extends Application {
 			
 			if(UserList.contains(num)) {
 				MatchNums++;
+				
 			}
 			
 			TScore = ScoreCal(MatchNums);
 			p = String.valueOf(TScore);
 			ScoreData.setText( p );
-		
 			
-				}
+			
+			Data = "";
+		    for (Integer e1 :CompList  ) {
+		    	 	Data = String.valueOf(e1)+ ", " +Data   ;
+		    	 	}
+		    
+		    Picks.setText(Data);
+		    RoundsLeft.setText(String.valueOf(RoundCount));
+		    
 		
-		
+		}
 		else if (RoundCount > 0 && drowCount == 0){
 			
 			NextRound.setDisable(false);
-			
+			RoundsLeft.setText(String.valueOf(RoundCount));
+			Drow.setDisable(true);
+			GameScore = GameScore + TScore;
+			TotalGameScoreData.setText(String.valueOf(GameScore));
 		}
 		
-		
+		else if(RoundCount == 0 && drowCount == 0) {
 			
+			GameScore = GameScore + TScore;
+			TotalGameScoreData.setText(String.valueOf(GameScore));
+			RoundsLeft.setText(" GAME OVER ");
+			ScoreData.setText(" GAME OVER ");
+			drawsLeft.setText(" GAME OVER ");
+			Picks.setText(" GAME OVER ");
+			
+			
+		}
 		}
 	});
 
@@ -555,10 +605,16 @@ public class JavaFXTemplate extends Application {
      });
      
      
+     HBox TheGRID = new HBox(50, grid);
+     HBox ScoreDataBox = new HBox(50 ,Score, ScoreData , Clear, NextRound);
+     HBox DrowDataBox = new HBox (50, Drow, drawing, drawsLeft);
+     HBox CompDataBox = new HBox(50, NumPick,Picks);
+     HBox RoundDataBox = new HBox(50, Round, RoundsLeft ); 
+     HBox TotalScoreBox = new HBox(50, TotalGameScore, TotalGameScoreData ); 
      
      
    //====================The Score Borad END======================
-	return new Scene( new VBox  (50 , BAR, new HBox(50, grid) , new HBox(50 ,Score, ScoreData , Clear, NextRound), new HBox (50, Drow, drawing, drawsLeft, Round, RoundsLeft ), new HBox(50, ) ), 900, 700);
+	return new Scene( new VBox  (40 , BAR, TheGRID , ScoreDataBox, DrowDataBox, CompDataBox, RoundDataBox, TotalScoreBox), 900, 700);
 	}
 	
 	
