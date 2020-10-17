@@ -239,7 +239,16 @@ public class JavaFXTemplate extends Application {
 		            
 		        }; 
 
-
+			EventHandler<ActionEvent> RoundC = new EventHandler<ActionEvent>() {
+					
+					@Override
+					public void handle(ActionEvent event) {
+						
+						sceneMap.put("game", GameSecne());
+						primaryStage.setScene(sceneMap.get("game"));
+					} 
+		            
+		        }; 
 		        
 		        
 		        //Setting up four Toggle Button to chose number of rounds the player wants to play.
@@ -265,7 +274,7 @@ public class JavaFXTemplate extends Application {
 		        RoundVal2.setOnAction(RoundVal2Event);
 		        RoundVal3.setOnAction(RoundVal3Event);
 		        RoundVal4.setOnAction(RoundVal4Event);
-		        RoundContinue.setOnAction(e -> primaryStage.setScene(sceneMap.get("game")));
+		        RoundContinue.setOnAction(RoundC);
 		       
 				
 		      
@@ -328,6 +337,16 @@ public class JavaFXTemplate extends Application {
 		            
 		        }; 
 		
+			
+			EventHandler<ActionEvent> SpotC = new EventHandler<ActionEvent>() {
+					
+					@Override
+					public void handle(ActionEvent event) {
+						sceneMap.put("rounds", roundsScene());
+						primaryStage.setScene(sceneMap.get("rounds"));
+					} 
+		            
+		        }; 
 		        //Setting up four Toggle Button to chose number of Spot the player wants to play.
 				SpotVal1 = new ToggleButton(" 1 ");
 				SpotVal4 = new ToggleButton(" 4 ");
@@ -352,16 +371,25 @@ public class JavaFXTemplate extends Application {
 				SpotVal8.setOnAction(SpotVal8Event);
 				SpotVal10.setOnAction(SpotVal10Event);
 				
-				SpotContinue.setOnAction(e -> primaryStage.setScene(sceneMap.get("rounds")));
+				SpotContinue.setOnAction(SpotC);
 					
 		//================== END Initializing and setting action needed for the Spot Window=================	
 				
 				
 		//================== Initializing and setting action needed for the Welcome Window=================		
 				
+				EventHandler<ActionEvent> Start = new EventHandler<ActionEvent>() {
+
+						@Override
+						public void handle(ActionEvent event) {
+							sceneMap.put("spots", spotScene()); 
+							primaryStage.setScene(sceneMap.get("spots"));
+						} 
+
+				}; 
 				start = new Button("PLAY KENO");
 				start.setTextAlignment(TextAlignment.CENTER);
-				start.setOnAction(e-> primaryStage.setScene(sceneMap.get("spots")));
+				start.setOnAction(Start);
 				
 		//================== END Initializing and setting action needed for the Spot Window=================			
 				
@@ -369,9 +397,9 @@ public class JavaFXTemplate extends Application {
 		//================== Adding the Scenes in the HashMap================
 				
 				sceneMap.put("scene", welcomeScene());
-				sceneMap.put("spots", spotScene());
-				sceneMap.put("rounds", roundsScene());
-				sceneMap.put("game", GameSecne());
+// 				sceneMap.put("spots", spotScene());
+// 				sceneMap.put("rounds", roundsScene());
+// 				sceneMap.put("game", GameSecne());
 				
 		//================== END Adding the Scenes in the HashMap================
 				
