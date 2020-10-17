@@ -57,6 +57,17 @@ public class JavaFXTemplate extends Application {
 		
 		public ArrayList<Integer> UserList; // ArrayList to store number picked by the user.
 		public ArrayList<Integer> CompList; // ArrayList to store numbers picked by the Computer.
+		
+		public ArrayList<Integer> RandomUserList; // ArrayList to store number picked by the user.
+		
+		GridPane grid = new GridPane();
+		int button_num = 1;
+
+
+		
+		public Button globalButton;
+		int val = 0;
+		int randCount = 0;
 		 
 		
 		public int getSpot() {
@@ -94,7 +105,6 @@ public class JavaFXTemplate extends Application {
 		private ToggleButton RoundVal3;
 		private ToggleButton RoundVal4;
 		private Button RoundContinue;
-
 		
 		//++++++++++++++++ END // buttons for the Rounds Choosing Screen.+++++++++++++++++++
 		
@@ -122,7 +132,7 @@ public class JavaFXTemplate extends Application {
 			sceneMap = new HashMap<String,Scene>(); // Initializing scenes storing H ashMap
 			UserList = new ArrayList<Integer>();	// Initializing the array list for the User picks 
 			CompList = new ArrayList<Integer>();	// Initializing the array list for the computer picks
-		
+			RandomUserList = new ArrayList<Integer>();
 		
 			primaryStage.setTitle("Keno Game Welcome !!!");//Setting the title of the Welcome Window.
 
@@ -372,7 +382,11 @@ public class JavaFXTemplate extends Application {
 				primaryStage.setScene(sceneMap.get("scene")); //set the scene in the stage
 				primaryStage.show(); //make visible to the user
 				
-		//================== ENDSetting up Primary Stage.================		
+		//================== ENDSetting up Primary Stage.================	
+				
+				
+								
+				
 		
 	}
 		
@@ -432,6 +446,8 @@ public class JavaFXTemplate extends Application {
 		
 		return new Scene(Pane, 600, 450);
 		
+		
+		
 	}
 	
 	
@@ -446,6 +462,8 @@ public class JavaFXTemplate extends Application {
 		Pane.setCenter(paneCenter);
 		return new Scene(Pane, 600, 450);
 		
+ 
+		
 	}
 	
 	public Scene GameSecne() {
@@ -455,19 +473,23 @@ public class JavaFXTemplate extends Application {
 	//====================The Grid ======================
 	
 		
-	GridPane grid = new GridPane();
+	grid = new GridPane();
 	grid.setHgap(10);
 	grid.setVgap(10);
 	grid.setAlignment(Pos.CENTER);
 	
-	 int button_num = 1;
+	 button_num = 1;
+	 int counter = 0;
 
+	 
 
      for(int x = 0; x < 8; x++) {
          for(int i = 0; i < 10; i++) {
 
              Button b1 = new Button(Integer.toString(button_num));
              button_num++;
+
+             
              b1.setStyle("-fx-pref-height: 100px");
              b1.setStyle("-fx-pref-width: 100px");
 
@@ -483,6 +505,7 @@ public class JavaFXTemplate extends Application {
                      // TODO Auto-generated method stub
                      System.out.println(" \n button pressed: " + ((Button)e.getSource()).getText());
                      
+                     
                      String s = ((Button)e.getSource()).getText();		 
                      UserList.add(Integer.valueOf(s));
                      
@@ -494,6 +517,7 @@ public class JavaFXTemplate extends Application {
 //                    	 System.out.println(" " + e1);}
                      
                      SpotCount--;
+                     
                  }
                }
              });
@@ -551,6 +575,8 @@ public class JavaFXTemplate extends Application {
      
      Button Drow = new Button(" Drow ");
      Button Clear = new Button("Clear");
+     Button Random = new Button("Random");
+
     
      Button NextRound =  new Button ("NextRound");
      NextRound.setDisable(true);
@@ -563,6 +589,8 @@ public class JavaFXTemplate extends Application {
 	 {
 		@Override
 		public void handle(ActionEvent event) {
+			
+			
 			if(RoundCount!=0)
 			{
 			//GameScore = GameScore + TScore;
@@ -570,6 +598,7 @@ public class JavaFXTemplate extends Application {
 			TScore = 0; 
 			UserList.clear();
 			CompList.clear();
+			RandomUserList.clear();
 			SpotCount = Spot;
 			drowCount = 20;
 			MatchNums = 0;
@@ -586,6 +615,10 @@ public class JavaFXTemplate extends Application {
 			}	
 			Clear.setDisable(false);
 			Drow.setDisable(false);
+			Random.setDisable(false);
+			
+			NextRound.setDisable(true);
+			
 			}
 		}
 		});
@@ -598,6 +631,19 @@ public class JavaFXTemplate extends Application {
 
 		@Override
 		public void handle(ActionEvent event) {
+		
+			System.out.println("Spot Count: " + SpotCount);
+			System.out.println("Spot Count: " + Spot);
+			System.out.println("Drow Count: " + drowCount);
+			
+			for(Integer e: UserList) {
+				System.out.println(e);
+			}
+			
+			for(Integer e: RandomUserList) {
+				System.out.println(e);
+			}
+			
 		if(SpotCount == 0 && drowCount != 0 ){
 			
 			
@@ -613,10 +659,9 @@ public class JavaFXTemplate extends Application {
 			drawsLeft.setText( p );
 			
 			
-			Random rand = new Random();
-			int num = 1 + rand.nextInt(80);
+			int num = GetRandomNumber();
 			while(CompList.contains(num)) {
-				num = 1 + rand.nextInt(80);
+				num = GetRandomNumber();
 			}
 			CompList.add(num);
 			
@@ -626,6 +671,7 @@ public class JavaFXTemplate extends Application {
 				MatchNums++;
 				
 			}
+
 			
 			TScore = ScoreCal(MatchNums);
 			p = String.valueOf(TScore);
@@ -634,8 +680,9 @@ public class JavaFXTemplate extends Application {
 			
 			Data = "";
 		    for (Integer e1 :CompList  ) {
-		    	 	Data = String.valueOf(e1)+ ", " +Data   ;
-		    	 	}
+		    	 	Data = String.valueOf(e1)+ ", " +Data;
+		    }
+
 		    
 		    Picks.setText(Data);
 		    RoundsLeft.setText(String.valueOf(RoundCount));
@@ -649,6 +696,7 @@ public class JavaFXTemplate extends Application {
 			Drow.setDisable(true);
 			GameScore = GameScore + TScore;
 			TotalGameScoreData.setText(String.valueOf(GameScore));
+			
 		}
 		
 		else if(RoundCount == 0 && drowCount == 0) {
@@ -675,6 +723,8 @@ public class JavaFXTemplate extends Application {
 				
 					SpotCount = Spot;
 					UserList.clear();
+					RandomUserList.clear();
+					Random.setDisable(false);
 					
 					for(Node child: grid.getChildren()) {	
 						child.setDisable(false);
@@ -682,10 +732,52 @@ public class JavaFXTemplate extends Application {
 				}
      });
      
+     Random.setOnAction(new EventHandler<ActionEvent>(){
+
+		@Override
+		public void handle(ActionEvent event) {
+			// TODO Auto-generated method stub
+			
+			
+			for(Node Child: grid.getChildren()) {
+				Child.setDisable(false);
+			}
+			UserList.clear();
+			
+			for(int i = 0; i < Spot; i++) {
+				
+				val = GetRandomNumber();
+				while(UserList.contains(val)) {
+					val = GetRandomNumber();
+				}
+			
+					int count = 1;
+
+					for(Node Child: grid.getChildren()) {
+						
+						if(val!= count) {
+							count++;
+						}
+						else {
+							SpotCount--;
+							disbaleRandomButton(val, Child);
+							count = 1;
+							break;
+						}
+					}
+					
+				}
+			
+			Random.setDisable(true);
+			
+			}
+    	 
+     });
+     
      
      HBox TheGRID = new HBox(50, grid);
      HBox ScoreDataBox = new HBox(50 ,Score, ScoreData , Clear, NextRound);
-     HBox DrowDataBox = new HBox (50, Drow, drawing, drawsLeft);
+     HBox DrowDataBox = new HBox (50, Drow, drawing, drawsLeft, Random);
      HBox CompDataBox = new HBox(50, NumPick,Picks);
      HBox RoundDataBox = new HBox(50, Round, RoundsLeft ); 
      HBox TotalScoreBox = new HBox(50, TotalGameScore, TotalGameScoreData ); 
@@ -735,6 +827,28 @@ public class JavaFXTemplate extends Application {
 
 		return 0;
 	}
+	
+	public int GetRandomNumber() {
+		
+		Random rand = new Random();
+		return (1 + rand.nextInt(80));
+	}
+	
+	public void disbaleRandomButton(int val, Node Child) {
+		
+		UserList.clear();
+		
+		Child.setDisable(true);
+		RandomUserList.add(val);
+				
+		for(Integer e: RandomUserList) {
+			UserList.add(e);
+		}
+		
+		
+	}
+	
+	
 	
 	
 	
