@@ -54,6 +54,7 @@ public class JavaFXTemplate extends Application {
 		public  String Data;//Attributer to display the score in the game 
 		public Stage me;
 		
+		
 		public int TScore = 0; //Attribute to store the Score per Round 
 		public int GameScore = 0;//Attribute to store the Score in total in all the Round. 
 		
@@ -397,7 +398,6 @@ public class JavaFXTemplate extends Application {
 		//================== Adding the Scenes in the HashMap================
 				
 				sceneMap.put("scene", welcomeScene());
-			
 // 				sceneMap.put("spots", spotScene());
 // 				sceneMap.put("rounds", roundsScene());
 // 				sceneMap.put("game", GameSecne());
@@ -673,9 +673,9 @@ public class JavaFXTemplate extends Application {
      
      //+++++++++++++++++++ ALL buttons, text , textfield setups+++++++++++++++;
 
-     Text Score = new Text(" Score :");
-     Text drawing = new Text("Drawing left:");
-     Text RoundText = new Text("Rounds Left ");
+     Text Score = new Text(" Score: ");
+     Text drawing = new Text("Drawing left: ");
+     Text RoundText = new Text("Rounds Left: ");
      Text NumPick = new Text("Numbers picked by game:");
      Text TotalGameScore = new Text("The Score of the total Game are :");
      
@@ -685,7 +685,36 @@ public class JavaFXTemplate extends Application {
      Score.setTranslateX(5);
      Score.setTranslateY(2);
      
-     Text MatchText = new Text("Numbers Matched in the List");
+     drawing.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 30)); // Making Text Fancy 
+     drawing.setFill(Color.YELLOW); 
+     drawing.setStrokeWidth(2); 
+     drawing.setTranslateX(10);
+     drawing.setTranslateY(5);
+     
+     RoundText.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 30)); // Making Text Fancy 
+     RoundText.setFill(Color.YELLOW); 
+     RoundText.setStrokeWidth(2); 
+     RoundText.setTranslateX(10);
+     RoundText.setTranslateY(7);
+     
+     NumPick.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 30)); // Making Text Fancy 
+     NumPick.setFill(Color.YELLOW); 
+     NumPick.setStrokeWidth(2); 
+     NumPick.setTranslateX(10);
+     NumPick.setTranslateY(10);
+     
+     TotalGameScore.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 30)); // Making Text Fancy 
+     TotalGameScore.setFill(Color.YELLOW); 
+     TotalGameScore.setStrokeWidth(2); 
+     TotalGameScore.setTranslateX(10);
+     
+     
+     
+     Text MatchText = new Text("Numbers Matched in the List: ");
+     MatchText.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 30)); // Making Text Fancy 
+     MatchText.setFill(Color.YELLOW); 
+     MatchText.setStrokeWidth(2); 
+
      
      
      
@@ -694,6 +723,8 @@ public class JavaFXTemplate extends Application {
      MatchData.setMouseTransparent(true);
      MatchData.setFocusTraversable(false);
      MatchData.setText(" NaN ");
+     MatchData.setTranslateX(-20);
+     MatchData.setTranslateY(10);
      
      
      TextField TotalGameScoreData = new TextField();
@@ -701,6 +732,7 @@ public class JavaFXTemplate extends Application {
      TotalGameScoreData.setMouseTransparent(true);
      TotalGameScoreData.setFocusTraversable(false);
      TotalGameScoreData.setText(" 0 ");
+     TotalGameScoreData.setTranslateY(5);
 
      
      TextField Picks = new TextField();
@@ -708,6 +740,7 @@ public class JavaFXTemplate extends Application {
      Picks.setMouseTransparent(true);
      Picks.setFocusTraversable(false);
      Picks.setPrefWidth(450);
+     Picks.setTranslateY(10);
      
      
      TextField ScoreData = new TextField();
@@ -724,22 +757,33 @@ public class JavaFXTemplate extends Application {
      drawsLeft.setMouseTransparent(true);
      drawsLeft.setFocusTraversable(false);
      drawsLeft.setText(" 20 ");
+     drawsLeft.setTranslateY(10);
      
      
      TextField RoundsLeft = new TextField();
      RoundsLeft.setEditable(false);
      RoundsLeft.setMouseTransparent(true);
      RoundsLeft.setFocusTraversable(false);
+     RoundsLeft.setTranslateY(10);
+     RoundsLeft.setTranslateX(-10);
     
      
      Button Drow = new Button(" Drow ");
      Button Clear = new Button("Clear");
      Button Random = new Button("Random");
      Button NewGame = new Button ("Play_Again");
-     NewGame.setDisable(true);
+     
+
 
     
      Button NextRound =  new Button ("NextRound");
+     
+     buttonDesign(NextRound);
+     buttonDesign(Drow);
+     buttonDesign(Clear);
+     buttonDesign(Random);
+     buttonDesign(NewGame);
+     NewGame.setDisable(true);
      NextRound.setDisable(true);
      
    //+++++++++++++++++++ END ALL buttons, text , textfield setups+++++++++++++++;   
@@ -790,7 +834,7 @@ public class JavaFXTemplate extends Application {
 		});
      
      
-   
+
      
      Drow.setOnAction(new EventHandler<ActionEvent>()
 	 {
@@ -801,6 +845,8 @@ public class JavaFXTemplate extends Application {
 			System.out.println("Spot Count: " + SpotCount);
 			System.out.println("Spot Count: " + Spot);
 			System.out.println("Drow Count: " + drowCount);
+			
+			Random.setDisable(true);
 			
 			for(Integer e: UserList) {
 				System.out.println(e);
@@ -998,13 +1044,18 @@ public class JavaFXTemplate extends Application {
 			Data = " ";//Attributer to display the score in the game 
 			TScore = 0; //Attribute to store the Score per Round 
 			GameScore = 0;
+			RoundContinue.setDisable(true);
+			SpotContinue.setDisable(true);
 			drawsLeft.setText(" 20 ");
 			ScoreData.setText(" 0 ");
 			TotalGameScoreData.setText(" 0 ");
 			Picks.setText(" ");
 			MatchData.setText(" NaN ");
 			RoundsLeft.setText("  ");
-			me.setScene(sceneMap.get("scene")); 
+			
+			
+			
+			me.setScene(sceneMap.get("scene"));
 		}
 	});
      
@@ -1012,16 +1063,17 @@ public class JavaFXTemplate extends Application {
      HBox TheGRID = new HBox(50, grid);
      TheGRID.setStyle("-fx-background-image: url(grid.jpg);");
      HBox ScoreDataBox = new HBox(50 ,Score, ScoreData , Clear, NextRound, NewGame);
-     HBox DrowDataBox = new HBox (50, Drow, drawing, drawsLeft, Random);
+     HBox DrowDataBox = new HBox (50, drawing, drawsLeft, Drow, Random);
      HBox CompDataBox = new HBox(50, NumPick,Picks);
      HBox RoundDataBox = new HBox(50, RoundText, RoundsLeft, MatchText, MatchData ); 
      HBox TotalScoreBox = new HBox(50, TotalGameScore, TotalGameScoreData ); 
      VBox barGrid = new VBox(50, BAR, TheGRID);
      VBox group = new VBox  (40 ,ScoreDataBox, DrowDataBox, CompDataBox, RoundDataBox, TotalScoreBox);
-     group.setStyle("-fx-background-image: url(gameBoard.jpg);");
+     //group.setStyle("-fx-background-image: url(gameBackground.jpg);");
+     //group.setStyle("-fx-background-image: url(gameBackground.jpg);");
      
      barGrid.getChildren().add(group);
-     barGrid.setStyle("-fx-background-color: darkslategray");
+     barGrid.setStyle("-fx-background-image: url(background.jpg);");
    //====================The Score Borad END======================
 	return new Scene(barGrid, 1000, 1000);
 	}
@@ -1088,6 +1140,17 @@ public class JavaFXTemplate extends Application {
 	}
 	
 	public void buttonDesign(ToggleButton spotVal12) {
+		spotVal12.setStyle("-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;" +
+				  " -fx-background-radius: 8;" + 
+				  "-fx-background-color:clinear-gradient(from 0% 93% to 0% 100%, #a34313 50%, #903b12 100%), #9d4024,#d86e3a," +
+				  "radial-gradient(center 50% 50%, radius 100%, #d86e3a, #c54e2c);" +
+				  "-fx-effect: dropshadow( gaussian , rgba(0,0,0,1) , 4,0,0,0 );"+
+			      "-fx-font-family: Arial;" +
+				  "-fx-font-weight: bold;" + 
+				  "-fx-font-size: 2.3em");
+	}
+	
+	public void buttonDesign(Button spotVal12) {
 		spotVal12.setStyle("-fx-background-insets: 0,0 0 5 0, 0 0 6 0, 0 0 7 0;" +
 				  " -fx-background-radius: 8;" + 
 				  "-fx-background-color:clinear-gradient(from 0% 93% to 0% 100%, #a34313 50%, #903b12 100%), #9d4024,#d86e3a," +
