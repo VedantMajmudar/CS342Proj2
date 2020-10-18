@@ -52,7 +52,7 @@ public class JavaFXTemplate extends Application {
 		public int drowCount = 20;//Attribute to  keep running count of Draws in every round
 		public int MatchNums = 0; //Attribute to  keep running count of numbers matched in every round;
 		public  String Data;//Attributer to display the score in the game 
-		
+		public Stage me;
 		
 		public int TScore = 0; //Attribute to store the Score per Round 
 		public int GameScore = 0;//Attribute to store the Score in total in all the Round. 
@@ -397,6 +397,7 @@ public class JavaFXTemplate extends Application {
 		//================== Adding the Scenes in the HashMap================
 				
 				sceneMap.put("scene", welcomeScene());
+			
 // 				sceneMap.put("spots", spotScene());
 // 				sceneMap.put("rounds", roundsScene());
 // 				sceneMap.put("game", GameSecne());
@@ -407,6 +408,7 @@ public class JavaFXTemplate extends Application {
 		//================== Setting up Primary Stage.================		
 			
 				//new scene with root node
+				me = primaryStage;
 				primaryStage.setScene(sceneMap.get("scene")); //set the scene in the stage
 				primaryStage.show(); //make visible to the user
 				
@@ -1002,7 +1004,7 @@ public class JavaFXTemplate extends Application {
 			Picks.setText(" ");
 			MatchData.setText(" NaN ");
 			RoundsLeft.setText("  ");
-			//primaryStage.setScene(sceneMap.get("scene")); 
+			me.setScene(sceneMap.get("scene")); 
 		}
 	});
      
