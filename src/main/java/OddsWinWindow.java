@@ -2,6 +2,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -15,11 +16,9 @@ public static void Odds() {
 		OddsWindow.setMinWidth(250);
 		
 		Label OddsData = new Label();
-		OddsData.setText("15\n" + 
-				"14 == 1 in 428,010,179,098.40\n" + 
-				"13 == 1 in 2,853,401,193.99\n" + 
-				"12 == 1 in 1,539,397.31\n" +
-				"11 == 1 in 81,020.91\n" + 
+		OddsData.setStyle("-fx-background-color: BLACK");
+		OddsData.setTextFill(Color.LIME); 
+		OddsData.setText(
 				"10 == 1 in 789.16\n" + 
 				"9  == 1 in 136.40\n" +
 				"8  == 1 in 33.46\n" + 
@@ -37,7 +36,7 @@ public static void Odds() {
 		layout.getChildren().addAll(OddsData);
 		layout.setAlignment(Pos.TOP_CENTER);
 		
-		Scene scene = new Scene(layout);
+		Scene scene = new Scene(layout, Color.BLACK);
 		OddsWindow.setScene(scene);
 		OddsWindow.showAndWait();
 
