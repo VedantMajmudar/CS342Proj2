@@ -1,7 +1,10 @@
+//Name 1 : Meet Patel >> mpate281
+//Name 2 : Vedant Majmudar >> vmajmu3
+//Prpject : Kino Game with javafx. 
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-
 import javafx.application.Application;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
