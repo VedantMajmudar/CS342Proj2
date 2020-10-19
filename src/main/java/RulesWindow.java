@@ -2,6 +2,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -17,6 +18,8 @@ public class RulesWindow {
 		RuleWindow.setMinWidth(250);
 		
 		Label RulesData = new Label();
+		RulesData.setStyle("-fx-background-color: BLACK");
+		RulesData.setTextFill(Color.LIME); 
 		RulesData.setText("1. Decide how much to play per draw. Each play costs $1. Play for $2 to double your prize; play for $3 to triple your "
 				+ "prize and so on up to $10 per play.\n" + 
 				"2. Select how many consecutive draws to play. Pick up to 20. Drawings happen every 4 minutes.\n" + 
@@ -31,7 +34,7 @@ public class RulesWindow {
 		layout.getChildren().addAll(RulesData);
 		layout.setAlignment(Pos.TOP_CENTER);
 		
-		Scene scene = new Scene(layout);
+		Scene scene = new Scene(layout, Color.BLACK);
 		RuleWindow.setScene(scene);
 		RuleWindow.showAndWait();
 	}
