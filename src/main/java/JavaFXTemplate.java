@@ -72,6 +72,7 @@ public class JavaFXTemplate extends Application {
 		public Button globalButton;
 		int val = 0; 
 		int randCount = 0; //Random Value counter 
+		boolean changeBackground = false;
 		 
 		
 		public int getSpot() {
@@ -448,8 +449,13 @@ public class JavaFXTemplate extends Application {
 		
 		Pane.setCenter(paneCenter); 
 		Pane.setTop(vbox1); //Setting menu bar at the top.
-		
-		Pane.setStyle("-fx-background-image: url(welcome1.jpeg)"); //Makeing the frame fancy 
+		if(changeBackground == false) {
+			Pane.setStyle("-fx-background-image: url(welcome1.jpeg)");
+		}
+		else {
+			Pane.setStyle("-fx-background-image: url(WelcomeSpace.jpg)");
+		}
+		//Pane.setStyle("-fx-background-image: url(welcome1.jpeg)"); //Makeing the frame fancy 
 		start.setPrefSize(140, 70);
 		start.setTranslateY(85);
 		start.setTranslateX(65);
@@ -512,8 +518,13 @@ public class JavaFXTemplate extends Application {
 		//Making text fancy. 
 		textMessage.setFont(Font.font("Times New Roman", FontWeight.BOLD, FontPosture.REGULAR, 65));
 		textMessage.setFill(Color.YELLOW);
-		Pane.setStyle("-fx-background-image: url(spots.jpg)");
-		
+		//Pane.setStyle("-fx-background-image: url(spots.jpg)");
+		if(changeBackground == false) {
+			Pane.setStyle("-fx-background-image: url(spots.jpg)");
+		}
+		else {
+			Pane.setStyle("-fx-background-image: url(SpotBackground.jpeg)");
+		}
 		//Setting the size of the button. 
 		SpotVal1.setPrefSize(70, 70);
 		SpotVal4.setPrefSize(70, 70);
@@ -583,7 +594,14 @@ public class JavaFXTemplate extends Application {
 		
 		//Make a vbox to add the menu bar at the top.
 		VBox paneCenter = new VBox(30,BAR);
-		Pane.setStyle("-fx-background-image: url(rounds2.jpg)");
+		//Pane.setStyle("-fx-background-image: url(rounds2.jpg)");
+		
+		if(changeBackground == false) {
+			Pane.setStyle("-fx-background-image: url(rounds2.jpg)");
+		}
+		else {
+			Pane.setStyle("-fx-background-image: url(RoundBackground.jpg)");
+		}
 
 		//Adjusting sizes of the button 
 		RoundVal1.setPrefSize(70, 70);
@@ -1091,7 +1109,22 @@ public class JavaFXTemplate extends Application {
 
      //making the backgroundy fancy 
      barGrid.getChildren().add(group);
-     barGrid.setStyle("-fx-background-image: url(background.jpg);");
+     //barGrid.setStyle("-fx-background-image: url(background.jpg);");
+		
+	MenuItem iFive = new MenuItem("Change Look"); 
+	mOne.getItems().add(iFive);
+
+	iFive.setOnAction((ActionEvent t) -> {changeBackground = true;
+						barGrid.setStyle("-fx-background-image: url(SpaceBackground.jpeg)");
+						TheGRID.setStyle("-fx-background-image: none;");});		
+     
+	if(changeBackground == false) {
+		barGrid.setStyle("-fx-background-image: url(background.jpg)");
+		TheGRID.setStyle("-fx-background-image: url(grid.jpg);");
+	}
+	else {
+		barGrid.setStyle("-fx-background-image: url(SpaceBackground.jpeg)");
+	}
      //====================The Score Borad END======================
 	
      return new Scene(barGrid, 1000, 1000);
