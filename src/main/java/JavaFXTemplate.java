@@ -73,6 +73,7 @@ public class JavaFXTemplate extends Application {
 		int val = 0; 
 		int randCount = 0; //Random Value counter 
 		boolean changeBackground = false;
+		Menu mOne;
 		 
 		
 		public int getSpot() {
@@ -147,7 +148,7 @@ public class JavaFXTemplate extends Application {
 		
 			BAR = new MenuBar(); //A menu bar takes menus as children
 
-			Menu mOne = new Menu("Menu"); //a menu goes inside a menu bar and with all the windows 
+			mOne = new Menu("Menu"); //a menu goes inside a menu bar and with all the windows 
 		
 			MenuItem iOne = new MenuItem("Rule"); //MenuItem which will lunch  a new window for Rules.
 			MenuItem iTwo = new MenuItem("Odds of winning"); //MenuItem which will lunch  a new window for  Odds of winning.
